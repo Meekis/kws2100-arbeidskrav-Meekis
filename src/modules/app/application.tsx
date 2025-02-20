@@ -26,20 +26,12 @@ function focusStyle(feature: FeatureLike) {
 
 const municipalityLayer = new VectorLayer({
   source: new VectorSource({
-    url: "/kws2100-arbeidskrav-Meekis/geojson/tilfluktsrom.geojson",
-    format: new GeoJSON(),
-  }),
-  style: new Style({ stroke: new Stroke({ color: "red", width: 5 }) }),
-});
-
-const sivilforsvarLayer = new VectorLayer({
-  source: new VectorSource({
     url: "/kws2100-arbeidskrav-Meekis/geojson/sivilforsvarsdistrikt.geojson",
     format: new GeoJSON(),
   }),
   style: new Style({
-    stroke: new Stroke({ color: "green", width: 2 }), // Sett en annen farge
-    fill: new Fill({ color: "rgba(0, 255, 0, 0.1)" }), // Gjør den halvtransparent
+    stroke: new Stroke({ color: "green", width: 2 }),
+    fill: new Fill({ color: "rgba(0, 255, 0, 0.1)" }),
   }),
 });
 
@@ -47,7 +39,12 @@ const map = new Map({
   layers: [
     new TileLayer({ source: new OSM() }),
     municipalityLayer,
-    sivilforsvarLayer,
+    new VectorLayer({
+      source: new VectorSource({
+        url: "/kws2100-arbeidskrav-Meekis/geojson/tilfluktsrom.geojson",
+        format: new GeoJSON(),
+      }),
+    }),
   ],
   view: new View({ center: [10.6, 59.9], zoom: 10 }),
 });
@@ -64,7 +61,7 @@ export function Application() {
       .getSource()!
       .getFeaturesAtCoordinate(e.coordinate);
     for (const feature of features) {
-      feature.setStyle(focusStyle(feature)); // Kall funksjonen riktig
+      feature.setStyle(focusStyle(feature));
     }
     focusFeatures.current = features;
   }
