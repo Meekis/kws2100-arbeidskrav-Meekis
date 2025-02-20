@@ -26,22 +26,28 @@ function focusStyle(feature: FeatureLike) {
 
 const municipalityLayer = new VectorLayer({
   source: new VectorSource({
-    url: "/kws2100-arbeidskrav-Meekis/geojson/beredskapsdepot.geojson",
+    url: "/kws2100-arbeidskrav-Meekis/geojson/tilfluktsrom.geojson",
     format: new GeoJSON(),
   }),
-  style: new Style({ stroke: new Stroke({ color: "red", width: 2 }) }),
+  style: new Style({ stroke: new Stroke({ color: "red", width: 5 }) }),
+});
+
+const sivilforsvarLayer = new VectorLayer({
+  source: new VectorSource({
+    url: "/kws2100-arbeidskrav-Meekis/geojson/sivilforsvarsdistrikt.geojson",
+    format: new GeoJSON(),
+  }),
+  style: new Style({
+    stroke: new Stroke({ color: "green", width: 2 }), // Sett en annen farge
+    fill: new Fill({ color: "rgba(0, 255, 0, 0.1)" }), // Gjør den halvtransparent
+  }),
 });
 
 const map = new Map({
   layers: [
     new TileLayer({ source: new OSM() }),
     municipalityLayer,
-    new VectorLayer({
-      source: new VectorSource({
-        url: "/kws2100-arbeidskrav-Meekis/geojson/sivilforsvarsdistrikt.geojson",
-        format: new GeoJSON(),
-      }),
-    }),
+    sivilforsvarLayer,
   ],
   view: new View({ center: [10.6, 59.9], zoom: 10 }),
 });
@@ -58,7 +64,7 @@ export function Application() {
       .getSource()!
       .getFeaturesAtCoordinate(e.coordinate);
     for (const feature of features) {
-      feature.setStyle(focusStyle);
+      feature.setStyle(focusStyle(feature)); // Kall funksjonen riktig
     }
     focusFeatures.current = features;
   }
@@ -67,5 +73,6 @@ export function Application() {
     map.setTarget(mapRef.current!);
     map.on("pointermove", handlePointerMove);
   }, []);
-  return <div ref={mapRef}></div>;
+
+  return <div ref={mapRef} style={{ width: "100%", height: "100vh" }}></div>;
 }
