@@ -1,0 +1,38 @@
+{
+  "name": "arbeidskrav",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "tsc --noEmit && prettier --check .",
+    "dev": "vite",
+    "build": "vite build",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Meekis/kws2100-arbeidskrav-Meekis.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Meekis/kws2100-arbeidskrav-Meekis/issues"
+  },
+  "homepage": "https://github.com/Meekis/kws2100-arbeidskrav-Meekis#readme",
+  "description": "",
+  "packageManager": "npm@11.0.0+sha512.11dff29565d2297c74e7c594a9762581bde969f0aa5cbe6f5b3644bf008a16c065ece61094d9ffbb81125be38df8e1ba43eb8244b3d30c61eb797e9a2440e3ec",
+  "devDependencies": {
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "husky": "^9.1.7",
+    "prettier": "^3.5.1",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.1"
+  },
+  "dependencies": {
+    "ol": "^10.4.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
